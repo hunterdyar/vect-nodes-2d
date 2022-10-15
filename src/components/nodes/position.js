@@ -1,6 +1,7 @@
 import {Component, Input, Output} from "rete";
-import {PositionSocket, NumSocket,PosControl} from "@/components/Editor";
-// import PosControl from "@/components/PosControl";
+import {PositionSocket, NumSocket} from "@/components/Editor";
+import {NumControl} from "@/components/Editor";
+
 class PositionComponent extends Component {
     constructor(){
         super("Position");
@@ -10,7 +11,11 @@ class PositionComponent extends Component {
         var x = new Input('x',"X",NumSocket);
         var y = new Input('y',"Y",NumSocket);
         var out1 = new Output('pos', "Position", PositionSocket);
-        return node.addControl(new PosControl(this.editor, 'pos')).addOutput(out1).addInput(x).addInput(y);
+
+        x.addControl(new NumControl(this.editor, 'x'));
+        y.addControl(new NumControl(this.editor, 'y'));
+
+        return node.addOutput(out1).addInput(x).addInput(y);
     }
 
     worker(node, inputs, outputs) {

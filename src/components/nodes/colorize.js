@@ -8,8 +8,8 @@ class ColorizeComponent extends Component {
     }
 
     builder(node) {
-        var inp1 = new Input('inPath',"Path", PathSocket);
-        var out = new Output('outPath', "Colorized", PathSocket);
+        var inp1 = new Input('shape',"Path", PathSocket);
+        var out = new Output('shape', "Colorized", PathSocket);
 
         // inp1.addControl(new NumControl(this.editor, 'num'))
 
@@ -23,9 +23,9 @@ class ColorizeComponent extends Component {
         // var path = inputs['inPath'][0];
         // g.colorize(path,'lavenderblush','black',0);
         // g.colorize(path,'lavenderblush','black',0);
-        var path = g.colorize(inputs['inPath'][0], node.data.color);
+        var path = g.colorize(inputs['shape'][0], node.data.color);
         // this.editor.nodes.find(n => n.id == node.id).controls.get('preview').setValue(sum);
-        outputs['outPath'] = path;
+        outputs['shape'] = path;
     }
 }
 export default ColorizeComponent;

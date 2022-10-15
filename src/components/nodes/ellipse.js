@@ -9,12 +9,12 @@ class EllipseComponent extends Component
     }
 
     builder(node) {
-        var out1 = new Output('path', "Path", PathSocket);
+        var out1 = new Output('shape', "Ellipse", PathSocket);
         return node.addOutput(out1);
     }
 
     worker(node, inputs, outputs) {
-        outputs['path'] = g.ellipse(0, 0, 100, 100);//node.data.num;
+        outputs['shape'] = g.ellipse(0, 0, 100, 100);//node.data.num;
     }
 }
 

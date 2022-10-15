@@ -18,7 +18,7 @@ import DockPlugin from "rete-dock-plugin";
 import VueNumControl from './NumControl.vue';
 import VuePosControl from './PosControl.vue';
 
-import OutputComponent from "@/components/nodes/outputComponent";
+import OutputComponent from "@/components/nodes/output";
 import EllipseComponent from "@/components/nodes/ellipse.js";
 import ColorizeComponent from "@/components/nodes/colorize";
 import LineComponent from "@/components/nodes/line";
@@ -26,8 +26,8 @@ import PositionComponent from "@/components/nodes/position";
 import NumComponent from "@/components/nodes/number";
 import AddComponent from "@/components/nodes/add";
 
-export var PositionSocket = new Socket('Position');
-export var PathSocket = new Socket('Path value');
+export var PositionSocket = new Socket('Position value');
+export var PathSocket = new Socket('Shape value');
 export var NumSocket = new Socket('Number value');
 export var ctx;
 
@@ -88,19 +88,14 @@ export default {
         engine.register(c);
     });
 
-    var n1 = await components[0].createNode({num: 2});
-    var n2 = await components[0].createNode({num: 0});
-    var add = await components[1].createNode();
     var ellipse = await components[2].createNode();
     var output = await components[3].createNode();
     var colorize = await components[4].createNode({color: 'teal'});
 
-    n1.position = [80, 200];
-    n2.position = [80, 400];
-    add.position = [500, 240];
-    output.position = [300,200];
-    ellipse.position = [200, 400];
 
+    output.position = [450,400];
+    ellipse.position = [-50, 200];
+    colorize.position = [200,300];
     // editor.addNode(n1);
     // editor.addNode(n2);
     // editor.addNode(add);
@@ -108,13 +103,14 @@ export default {
     editor.addNode(output);
     editor.addNode(colorize);
 
-    // editor.connect(n1.outputs.get('num'), add.inputs.get('num'));
-    // editor.connect(n2.outputs.get('num'), add.inputs.get('num2'));
+    editor.connect(ellipse.outputs.get('shape'),colorize.inputs.get('shape'));
+    editor.connect(colorize.outputs.get('shape'), output.inputs.get('shape'));
 
 
     editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async () => {
       console.log('process');
         await engine.abort();
+        //todo start on output node.
         await engine.process(editor.toJSON());
     });
 
@@ -158,5 +154,14 @@ select, input {
   vertical-align: top;
   transform: scale(0.8);
   transform-origin: 50% 0;
+}
+.socket.shape-value {
+  background: #B5D6B2
+}
+.socket.position-value {
+  background: #FFEFBD
+}
+.socket.number-value {
+  background: #5A464C
 }
 </style>

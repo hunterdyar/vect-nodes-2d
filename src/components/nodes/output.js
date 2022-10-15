@@ -8,23 +8,23 @@ class OutputComponent extends Component {
     }
 
     builder(node) {
-        var inp1 = new Input('path',"Path",PathSocket,true);
+        var inp1 = new Input('shape',"Path",PathSocket,true);
 
         return node
             .addInput(inp1)
     }
 
+    // eslint-disable-next-line no-unused-vars
     worker(node, inputs, outputs) {
-        outputs['num'] = node.data.num;
         //Clear canvas
         clearCanvas(ctx.canvas);
 
         console.log("process output");
-        if(inputs['path'])
+        if(inputs['shape'])
         {
             //loop through and draw all of the paths in order.
             //todo: some way to sort? Get incoming node y position?
-            inputs['path'].map(path => {
+            inputs['shape'].map(path => {
                 path.draw(ctx);
             });
 
