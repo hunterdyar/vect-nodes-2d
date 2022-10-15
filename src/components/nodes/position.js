@@ -21,7 +21,7 @@ class PositionComponent extends Component {
     worker(node, inputs, outputs) {
         var x1 = inputs['x'].length?inputs['x'][0]:node.data.x;
         var y1 = inputs['y'].length?inputs['y'][0]:node.data.y;
-        console.log("pos output",{x:x1,y:y1});
+        //g.makePoint(?)
         outputs['pos'] = {x:x1,y:y1};
     }
 }

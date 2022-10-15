@@ -29,3 +29,5 @@ class ColorizeComponent extends Component {
     }
 }
 export default ColorizeComponent;
+
+//make a color picker vue component. use vue-color?
